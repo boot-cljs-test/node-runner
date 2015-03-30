@@ -1,0 +1,5 @@
+{:require  [boot-cljs-test.node-runner]
+ :init-fns []
+ :compiler-options {:main boot-cljs-test.node-runner
+                    :target :nodejs
+                    :asset-path "target/out"}}
