@@ -22,6 +22,21 @@
 (defn mk-parents [file]
   (-> file .getParent io/file .mkdirs))
 
+(defn compiler-options
+  "Extract :foreign-libs information from .cljs.edn files used by `boot-cljs`
+  to build JS from CLJS files."
+  [fileset]
+  (defn compiler-options-from-edn [f]
+    (get (-> f
+             core/tmp-file
+             slurp
+             read-string)
+         :compiler-options []))
+  (let [cljs-edn-files (->> fileset
+                            core/input-files
+                            (core/by-ext [".cljs.edn"]))]
+    (reduce into (map #(compiler-options-from-edn %) cljs-edn-files))))
+
 (deftask cljs-test-node-runner
   "Automatically produces:
 
@@ -32,12 +47,13 @@
   [n namespaces NS #{sym} "Namespaces whose tests will be run."]
   (let [templates ["boot_cljs_test/node_runner.cljs"
                    "cljs_test_node_runner.cljs.edn"]
-        test-dir (core/temp-dir!)]
+        test-dir (core/tmp-dir!)]
     (core/with-pre-wrap fileset
       (file/empty-dir! test-dir)
       (doseq [template templates
               :let [data {:required-ns (required-ns namespaces)
-                          :tested-ns (tested-ns namespaces)}
+                          :tested-ns (tested-ns namespaces)
+                          :foreign-libs (get (compiler-options fileset) :foreign-libs [])}
                     output (io/file test-dir template)
                     content (render-resource template data)]]
         (mk-parents output)
