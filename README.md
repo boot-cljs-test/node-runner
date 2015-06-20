@@ -14,7 +14,7 @@ Add `boot-cljs-test/node-runner` to your `build.boot` dependencies and
 
 ```clj
 (set-env! :dependencies '[[boot-cljs-test/node-runner "X.Y.Z" :scope "test"]])
-(require '[boot-cljs-test/node-runner :refer :all])
+(require '[boot-cljs-test.node-runner :refer :all])
 ```
 
 You can see the options available on the command line:
