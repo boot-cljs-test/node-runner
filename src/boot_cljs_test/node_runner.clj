@@ -32,7 +32,7 @@
   [n namespaces NS #{sym} "Namespaces whose tests will be run."]
   (let [templates ["boot_cljs_test/node_runner.cljs"
                    "cljs_test_node_runner.cljs.edn"]
-        test-dir (core/temp-dir!)]
+        test-dir (core/tmp-dir!)]
     (core/with-pre-wrap fileset
       (file/empty-dir! test-dir)
       (doseq [template templates
