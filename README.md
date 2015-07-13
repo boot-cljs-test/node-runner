@@ -1,7 +1,7 @@
 # boot-cljs-test/node-runner
 
 ```clj
-[boot-cljs-test/node-runner "0.1.0"]
+[boot-cljs-test.node-runner "0.1.0"]
 ```
 
 Boot task that automatically generate a ClojureScript test runner
