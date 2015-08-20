@@ -2,4 +2,5 @@
  :init-fns []
  :compiler-options {:main boot-cljs-test.node-runner
                     :target :nodejs
+                    :foreign-libs {{{foreign-libs}}}
                     :asset-path "target/out"}}
