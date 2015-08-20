@@ -52,5 +52,8 @@
   [c node-cmd str "Custom Node command. Default: 'node'"]
   (fn middleware [next-handler]
     (fn handler [fileset]
-      (sh (or node-cmd "node") "target/cljs_test_node_runner.js")
+      (try
+        (sh (or node-cmd "node") "target/cljs_test_node_runner.js")
+        (catch Exception e
+          (util/info (.getMessage e))))
       (-> fileset next-handler))))
