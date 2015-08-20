@@ -3,7 +3,7 @@
 DEPRECATED in favor of testem-runner: https://github.com/boot-cljs-test/testem-runner
 
 ```clj
-[boot-cljs-test/node-runner "0.1.0"]
+[boot-cljs-test.node-runner "0.1.0"]
 ```
 
 Boot task that automatically generate a ClojureScript test runner
